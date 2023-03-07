@@ -1,7 +1,9 @@
-import { Configuration, OpenAIApi } from "openai";
-
+//import { Configuration, OpenAIApi } from "openai";
+const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  apiKey: "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",
+
+  apiKey: process.env.OPENAI_API_KEY,
+
 });
 const openaiapi = new OpenAIApi(configuration);
 
@@ -16,7 +18,7 @@ async function openai(contractName) {
   try {
     const response = await openaiapi.createCompletion({
       model: "text-davinci-003",
-      prompt: "list 20 Rent aggrement input fields with dummy data",
+      prompt: `list out 20 input fields required for a ${contractName} and provide dummy data for each field`,
       temperature: 0.9,
       max_tokens: 2618,
       top_p: 1,
