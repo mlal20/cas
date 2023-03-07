@@ -5,12 +5,10 @@ import {
 } from "shards-react";
 
 const ConvertPDF = (props) => {
-var text = props.contractInput.toString() ;
+var text = props.contractInput.response ;
    function pdfGenerator() {
-    console.log("hello",props.contractInput.toString());
         var doc = new jsPDF('p', 'pt',"a4");
         doc.text(50, 50,text,{ maxWidth: 400 });
-        //  doc.table(30, 30, JSON.stringify(this.oppListDate), this.headers, );
         doc.save("generated.pdf");
     }
         

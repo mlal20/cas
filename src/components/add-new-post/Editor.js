@@ -41,7 +41,7 @@ function Editor() {
       //     new Error(`Request failed with status ${response.status}`);
       // }
 
-      setContractInput(response);
+      setContractInput({response});
     } catch (error) {
       console.error(error);
       alert(error.message);
