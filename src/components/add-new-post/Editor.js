@@ -11,13 +11,14 @@ import {
   InputGroupAddon
 } from "shards-react";
 import openai from "../../api/openai";
-
+import { Button as ButtonLoader, ButtonGroup } from "@chakra-ui/react";
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
 // import { ChatCompletionRequestMessageRoleEnum } from "openai";
 import ConvertPDF from "../components-overview/convertPDF";
 
 function Editor() {
+   const [isLoading, setIsLoading] = useState(false);
   const [contractInput, setContractInput] = useState({});
   const [data,setData] =  useState("");
   const [contractName, setContractName] = useState("");
@@ -33,6 +34,7 @@ function Editor() {
     event.preventDefault();
 
     try {
+      setIsLoading(true);
       const response = await openai(contractName);
       console.log(response);
       setData({response})
@@ -43,6 +45,7 @@ function Editor() {
       // }
 
       setContractInput(response);
+      setIsLoading(false)
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -59,9 +62,19 @@ function Editor() {
               value={contractName}
               onChange={handleInputChange} />
             <InputGroupAddon type="append">
-              <Button theme="white" onClick={onSubmit}>
+               <ButtonLoader
+               theme="white"
+                className="btnLoader"
+                isLoading={isLoading}
+                loadingText=""
+                variant="contained"
+                onClick={onSubmit}
+                >
                 Generate
-              </Button>
+                </ButtonLoader>
+              {/* <Button theme="white" onClick={onSubmit}>
+                Generate
+              </Button> */}
             </InputGroupAddon>
           </InputGroup>
 
