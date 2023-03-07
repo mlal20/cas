@@ -18,7 +18,8 @@ import "../../assets/quill.css";
 import ConvertPDF from "../components-overview/convertPDF";
 
 function Editor() {
-  const [contractInput, setContractInput] = useState("");
+  const [contractInput, setContractInput] = useState({});
+  const [data,setData] =  useState("");
   const [contractName, setContractName] = useState("");
 
   const handleInputChange = e => {
@@ -34,14 +35,14 @@ function Editor() {
     try {
       const response = await openai(contractName);
       console.log(response);
-
+      setData({response})
       // const data = await response.json();
       // if (response.status !== 200) {
       //   throw data.error ||
       //     new Error(`Request failed with status ${response.status}`);
       // }
 
-      setContractInput({response});
+      setContractInput(response);
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -72,7 +73,7 @@ function Editor() {
              />
         </Form>
       </CardBody>
-    </Card><ConvertPDF contractInput = {contractInput} /></>
+    </Card><ConvertPDF data = {data} /></>
   );
 }
 

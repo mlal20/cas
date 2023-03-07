@@ -5,7 +5,7 @@ import {
 } from "shards-react";
 
 const ConvertPDF = (props) => {
-var text = props.contractInput.response ;
+var text = props.data.response ;
    function pdfGenerator() {
         var doc = new jsPDF('p', 'pt',"a4");
         doc.text(50, 50,text,{ maxWidth: 400 });
