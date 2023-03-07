@@ -8,7 +8,7 @@ import {
   Button,
   ListGroupItem,
   InputGroup,
-  InputGroupAddon
+  InputGroupAddon,
 } from "shards-react";
 import openai from "../../api/openai";
 
@@ -20,11 +20,11 @@ function Editor() {
   const [contractInput, setContractInput] = useState("");
   const [contractName, setContractName] = useState("");
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     setContractName(e.target.value);
   };
 
-  const handleEditorChange = value => {
+  const handleEditorChange = (value) => {
     setContractInput(value);
   };
   async function onSubmit(event) {
@@ -32,15 +32,7 @@ function Editor() {
 
     try {
       const response = await openai(contractName);
-      console.log(response);
-
-      // const data = await response.json();
-      // if (response.status !== 200) {
-      //   throw data.error ||
-      //     new Error(`Request failed with status ${response.status}`);
-      // }
-
-      setContractInput(response.result);
+      setContractInput(response.replace(/^\n{2}/, "").replace(/\n/g, "<br />"));
     } catch (error) {
       console.error(error);
       alert(error.message);
