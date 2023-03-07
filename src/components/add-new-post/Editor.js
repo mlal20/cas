@@ -14,7 +14,8 @@ import openai from "../../api/openai";
 
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
-import { ChatCompletionRequestMessageRoleEnum } from "openai";
+// import { ChatCompletionRequestMessageRoleEnum } from "openai";
+import ConvertPDF from "../components-overview/convertPDF";
 
 function Editor() {
   const [contractInput, setContractInput] = useState("");
@@ -40,14 +41,14 @@ function Editor() {
       //     new Error(`Request failed with status ${response.status}`);
       // }
 
-      setContractInput(response.result);
+      setContractInput({response});
     } catch (error) {
       console.error(error);
       alert(error.message);
     }
   }
   return (
-    <Card small className="mb-3">
+    <><Card small className="mb-3">
       <CardBody>
         <Form className="add-new-post">
           <InputGroup seamless className="mb-3">
@@ -55,11 +56,10 @@ function Editor() {
               size="lg"
               placeholder="Stream Line your contract"
               value={contractName}
-              onChange={handleInputChange}
-            />
+              onChange={handleInputChange} />
             <InputGroupAddon type="append">
               <Button theme="white" onClick={onSubmit}>
-                Genrate
+                Generate
               </Button>
             </InputGroupAddon>
           </InputGroup>
@@ -69,10 +69,10 @@ function Editor() {
             theme="snow"
             value={contractInput}
             onChange={handleEditorChange}
-          />
+             />
         </Form>
       </CardBody>
-    </Card>
+    </Card><ConvertPDF contractInput = {contractInput} /></>
   );
 }
 
