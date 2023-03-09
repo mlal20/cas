@@ -6,7 +6,7 @@ export default class Notifications extends React.Component {
     super(props);
 
     this.state = {
-      visible: false
+      visible: false,
     };
 
     this.toggleNotifications = this.toggleNotifications.bind(this);
@@ -14,7 +14,7 @@ export default class Notifications extends React.Component {
 
   toggleNotifications() {
     this.setState({
-      visible: !this.state.visible
+      visible: !this.state.visible,
     });
   }
 
@@ -36,7 +36,7 @@ export default class Notifications extends React.Component {
           open={this.state.visible}
           className="dropdown-menu dropdown-menu-small"
         >
-          <DropdownItem>
+          {/* <DropdownItem>
             <div className="notification__icon-wrapper">
               <div className="notification__icon">
                 <i className="material-icons">&#xE6E1;</i>
@@ -65,7 +65,7 @@ export default class Notifications extends React.Component {
                 could have been worse!
               </p>
             </div>
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem className="notification__all text-center">
             View all Notifications
           </DropdownItem>

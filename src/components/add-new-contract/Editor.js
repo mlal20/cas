@@ -12,22 +12,19 @@ import {
   ButtonGroup,
 } from "shards-react";
 import openai from "../../api/openai";
-import jsPDF from 'jspdf'
+import jsPDF from "jspdf";
 
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
-// import { ChatCompletionRequestMessageRoleEnum } from "openai";
-import { Button as ButtonLoader } from "@chakra-ui/react";
-import { set } from "lodash";
 
 function Editor() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading_1, setIsLoading_1] = useState(false);
+  const [isLoading_2, setIsLoading_2] = useState(false);
   const [contractInput, setContractInput] = useState("");
   const [contractName, setContractName] = useState("");
   const [i, setI] = useState(0);
   const [txt, setTxt] = useState("");
   const [speed, setSpeed] = useState(5);
-  const [aggrement, setAggrement] = useState("");
 
   useEffect(() => {
     if (i < txt.length) {
@@ -46,55 +43,57 @@ function Editor() {
     setContractInput(value);
   };
   async function onSubmit(event) {
-    setIsLoading(true);
+    setIsLoading_1(true);
     event.preventDefault();
     setTxt("");
     setContractInput("");
     setI(0);
 
     try {
-      const q = `list out 30 input fields required for a ${contractName} and provide dummy data for each field`;
+      const q = `list out 20 input fields required for a ${contractName} and provide dummy data for each field`;
       const response = await openai(q);
       setTxt(response.replace(/^\n{2}/, "").replace(/\n/g, "<br />"));
-      setIsLoading(false)
+      setIsLoading_1(false);
     } catch (error) {
       console.error(error);
+      setIsLoading_1(false);
       alert(error.message);
     }
   }
   async function createContract(event) {
     event.preventDefault();
+    setIsLoading_2(true);
     try {
       const q = `${contractInput} Write ${contractName} contract documents using above details`;
       const response = await openai(q);
-      console.log(response,"responsee")
       setTxt("");
       setContractInput("");
       setI(0);
       setTxt(response.replace(/^\n{2}/, "").replace(/\n/g, "<br />"));
+      setIsLoading_2(false);
     } catch (error) {
       console.error(error);
       alert(error.message);
+      setIsLoading_2(false);
     }
   }
   function pdfGenerator() {
-        const text = txt ;
-        console.log(txt)
-        var doc = new jsPDF('p', 'pt',[800, 800]);
-        doc.html(txt, {
-   callback: function (doc) {
-     doc.save("generated.pdf");
-   },
-   x: 20,
-   y: 20,
-   width:800,
-   windowWidth :800,
-   margin : 30,
-   autoPaging : 'text'
-   
-});
-        // doc.save();
+    if (!txt) {
+      return;
     }
+    const doc = new jsPDF("p", "pt", [800, 800]);
+    doc.html(txt, {
+      callback: function (doc) {
+        doc.save(`${contractName}.pdf`);
+      },
+      x: 20,
+      y: 20,
+      width: 800,
+      windowWidth: 800,
+      margin: 30,
+      autoPaging: "text",
+    });
+  }
   return (
     <>
       <Card small className="mb-3">
@@ -103,21 +102,14 @@ function Editor() {
             <InputGroup seamless className="mb-3">
               <FormInput
                 size="lg"
-                placeholder="Stream Line your contract"
+                placeholder="Stream Line your contract (software licensing agreements,)"
                 value={contractName}
                 onChange={handleInputChange}
               />
               <InputGroupAddon type="append">
-               <ButtonLoader
-               theme="white"
-                className="btnLoader"
-                isLoading={isLoading}
-                loadingText=""
-                variant="contained"
-                onClick={onSubmit}
-                >
-                  Generate Contract Input
-                </ButtonLoader>
+                <Button theme="white" disabled={isLoading_1} onClick={onSubmit}>
+                  {isLoading_1 ? "Loading Input..." : "Genrate Contract Input"}
+                </Button>
               </InputGroupAddon>
             </InputGroup>
 
@@ -133,10 +125,13 @@ function Editor() {
                 theme="primary"
                 onClick={createContract}
                 className="ml-auto"
+                disabled={isLoading_2}
               >
-                Create Contract
+                {isLoading_2 ? "Creating Contract..." : "Create Contract"}
               </Button>
-              <Button theme="white" onClick = {pdfGenerator}>Download as PDF</Button>
+              <Button theme="white" onClick={pdfGenerator}>
+                Download as PDF
+              </Button>
             </ButtonGroup>
           </Form>
         </CardBody>
