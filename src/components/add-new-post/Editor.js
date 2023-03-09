@@ -12,14 +12,16 @@ import {
   ButtonGroup,
 } from "shards-react";
 import openai from "../../api/openai";
+import jsPDF from 'jspdf'
 
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
 // import { ChatCompletionRequestMessageRoleEnum } from "openai";
-import ConvertPDF from "../components-overview/convertPDF";
+import { Button as ButtonLoader } from "@chakra-ui/react";
 import { set } from "lodash";
 
 function Editor() {
+  const [isLoading, setIsLoading] = useState(false);
   const [contractInput, setContractInput] = useState("");
   const [contractName, setContractName] = useState("");
   const [i, setI] = useState(0);
@@ -44,6 +46,7 @@ function Editor() {
     setContractInput(value);
   };
   async function onSubmit(event) {
+    setIsLoading(true);
     event.preventDefault();
     setTxt("");
     setContractInput("");
@@ -53,6 +56,7 @@ function Editor() {
       const q = `list out 30 input fields required for a ${contractName} and provide dummy data for each field`;
       const response = await openai(q);
       setTxt(response.replace(/^\n{2}/, "").replace(/\n/g, "<br />"));
+      setIsLoading(false)
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -63,6 +67,7 @@ function Editor() {
     try {
       const q = `${contractInput} Write ${contractName} contract documents using above details`;
       const response = await openai(q);
+      console.log(response,"responsee")
       setTxt("");
       setContractInput("");
       setI(0);
@@ -72,6 +77,24 @@ function Editor() {
       alert(error.message);
     }
   }
+  function pdfGenerator() {
+        const text = txt ;
+        console.log(txt)
+        var doc = new jsPDF('p', 'pt',[800, 800]);
+        doc.html(txt, {
+   callback: function (doc) {
+     doc.save("generated.pdf");
+   },
+   x: 20,
+   y: 20,
+   width:800,
+   windowWidth :800,
+   margin : 30,
+   autoPaging : 'text'
+   
+});
+        // doc.save();
+    }
   return (
     <>
       <Card small className="mb-3">
@@ -85,9 +108,16 @@ function Editor() {
                 onChange={handleInputChange}
               />
               <InputGroupAddon type="append">
-                <Button theme="white" onClick={onSubmit}>
+               <ButtonLoader
+               theme="white"
+                className="btnLoader"
+                isLoading={isLoading}
+                loadingText=""
+                variant="contained"
+                onClick={onSubmit}
+                >
                   Generate Contract Input
-                </Button>
+                </ButtonLoader>
               </InputGroupAddon>
             </InputGroup>
 
@@ -106,12 +136,11 @@ function Editor() {
               >
                 Create Contract
               </Button>
-              <Button theme="white">Download as PDF</Button>
+              <Button theme="white" onClick = {pdfGenerator}>Download as PDF</Button>
             </ButtonGroup>
           </Form>
         </CardBody>
       </Card>
-      <ConvertPDF contractInput={contractInput} />
     </>
   );
 }
