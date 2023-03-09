@@ -6,7 +6,7 @@ import UserActions from "./UserActions";
 
 const NavbarNav = () => (
   <Nav navbar className="border-left flex-row">
-    <Notifications />
+    {/* <Notifications /> */}
     <UserActions />
   </Nav>
 );

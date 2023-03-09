@@ -2,8 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import Editor from "../components/add-new-post/Editor";
-import SidebarActions from "../components/add-new-post/SidebarActions";
+import Editor from "../components/add-new-contract/Editor";
 function CreateContract() {
   return (
     <>
@@ -20,14 +19,14 @@ function CreateContract() {
 
         <Row>
           {/* Editor */}
-          <Col lg="9" md="12">
+          <Col lg="12" md="12">
             <Editor />
           </Col>
 
           {/* Sidebar Widgets */}
-          <Col lg="3" md="12">
+          {/* <Col lg="3" md="12">
             <SidebarActions />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </>

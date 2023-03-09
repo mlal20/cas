@@ -34,34 +34,18 @@ MainFooter.propTypes = {
   /**
    * The copyright info.
    */
-  copyright: PropTypes.string
+  copyright: PropTypes.string,
 };
 
 MainFooter.defaultProps = {
   contained: false,
-  copyright: "Copyright © 2018 DesignRevision",
+  copyright: "Copyright © 2023 CAS",
   menuItems: [
     {
-      title: "Home",
-      to: "#"
+      title: "Create Contract",
+      to: "#",
     },
-    {
-      title: "Services",
-      to: "#"
-    },
-    {
-      title: "About",
-      to: "#"
-    },
-    {
-      title: "Products",
-      to: "#"
-    },
-    {
-      title: "Blog",
-      to: "#"
-    }
-  ]
+  ],
 };
 
 export default MainFooter;
