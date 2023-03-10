@@ -81,7 +81,7 @@ function Editor() {
     if (!txt) {
       return;
     }
-    const doc = new jsPDF("p", "pt", [800, 800]);
+    const doc = new jsPDF("p", "px", [900, 900]);
     doc.html(txt, {
       callback: function (doc) {
         doc.save(`${contractName}.pdf`);
