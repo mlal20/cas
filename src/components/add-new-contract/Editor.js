@@ -33,14 +33,16 @@ function Editor() {
         setI(i + 1);
       }, speed);
     }
-  }, [i, txt, contractInput, speed]);
+  }, [i, txt]);
 
   const handleInputChange = (e) => {
     setContractName(e.target.value);
   };
 
   const handleEditorChange = (value) => {
-    setContractInput(value);
+    if (i == txt.length) {
+      setContractInput(value);
+    }
   };
   async function onSubmit(event) {
     setIsLoading_1(true);
@@ -78,11 +80,11 @@ function Editor() {
     }
   }
   function pdfGenerator() {
-    if (!txt) {
+    if (!contractInput) {
       return;
     }
     const doc = new jsPDF("p", "pt", [800, 800]);
-    doc.html(txt, {
+    doc.html(contractInput, {
       callback: function (doc) {
         doc.save(`${contractName}.pdf`);
       },
@@ -117,7 +119,7 @@ function Editor() {
               className="add-new-post__editor mb-1"
               theme="snow"
               value={contractInput}
-              //onChange={handleEditorChange}
+              onChange={handleEditorChange}
             />
 
             <ButtonGroup className="d-flex border-0 mt-10">
