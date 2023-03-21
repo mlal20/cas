@@ -16,6 +16,16 @@ export default function () {
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/create-a-contract",
     },
+    {
+      title: "Login",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/login",
+    },
+    {
+      title: "Sign Up",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/register",
+    },
     // {
     //   title: "Forms & Components",
     //   htmlBefore: '<i class="material-icons">view_module</i>',

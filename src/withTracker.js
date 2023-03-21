@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import GoogleAnalytics from "react-ga";
 
-GoogleAnalytics.initialize(process.env.REACT_APP_GAID || "UA-115105611-2");
+GoogleAnalytics.initialize(process.env.REACT_APP_GAID || "NoTAllowed");
 
 const withTracker = (WrappedComponent, options = {}) => {
-  const trackPage = page => {
+  const trackPage = (page) => {
     if (process.env.NODE_ENV !== "production") {
       return;
     }
 
     GoogleAnalytics.set({
       page,
-      ...options
+      ...options,
     });
     GoogleAnalytics.pageview(page);
   };

@@ -3,34 +3,33 @@ import { Redirect } from "react-router-dom";
 
 // Layout Types
 import { DefaultLayout } from "./layouts";
-
+import Fullpage from "./layouts/Fullpage";
 // Route Views
+
+import Register from "./views/Register";
+import Login from "./views/Login";
 import CreateContract from "./views/CreateContract";
-import Errors from "./views/Errors";
-import generate from "./api/generate";
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/create-a-contract" />,
+    component: () => <Redirect to="/login" />,
   },
-
+  {
+    path: "/register",
+    layout: Fullpage,
+    component: Register,
+  },
   {
     path: "/create-a-contract",
     layout: DefaultLayout,
     component: CreateContract,
   },
   {
-    path: "/errors",
-    layout: DefaultLayout,
-    component: Errors,
-  },
-
-  {
-    path: "/api",
-    layout: DefaultLayout,
-    component: generate,
+    path: "/login",
+    layout: Fullpage,
+    component: Login,
   },
 ];
