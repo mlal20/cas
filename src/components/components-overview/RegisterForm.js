@@ -12,13 +12,21 @@ import {
   Button,
 } from "shards-react";
 
-const CompleteFormExample = () => (
+const RegisterForm = () => (
   <ListGroup flush>
     <ListGroupItem className="p-3">
       <Row>
         <Col>
           <Form>
             <Row form>
+              <Col md="6">
+                <label htmlFor="fePassword">Full Name</label>
+                <FormInput
+                  id="fePassword"
+                  type="text"
+                  placeholder="Full Name"
+                />
+              </Col>
               <Col md="6" className="form-group">
                 <label htmlFor="feEmailAddress">Email</label>
                 <FormInput
@@ -27,7 +35,10 @@ const CompleteFormExample = () => (
                   placeholder="Email"
                 />
               </Col>
-              <Col md="6">
+            </Row>
+
+            <Row form>
+              <Col md="6" className="form-group">
                 <label htmlFor="fePassword">Password</label>
                 <FormInput
                   id="fePassword"
@@ -35,37 +46,15 @@ const CompleteFormExample = () => (
                   placeholder="Password"
                 />
               </Col>
-            </Row>
-
-            <FormGroup>
-              <label htmlFor="feInputAddress">Address</label>
-              <FormInput id="feInputAddress" placeholder="1234 Main St" />
-            </FormGroup>
-
-            <FormGroup>
-              <label htmlFor="feInputAddress2">Address 2</label>
-              <FormInput
-                id="feInputAddress2"
-                placeholder="Apartment, Studio or Floor"
-              />
-            </FormGroup>
-
-            <Row form>
               <Col md="6" className="form-group">
-                <label htmlFor="feInputCity">City</label>
-                <FormInput id="feInputCity" />
+                <label htmlFor="fePassword">Confirm Password</label>
+                <FormInput
+                  id="fePassword"
+                  type="password"
+                  placeholder="Confirm Password"
+                />
               </Col>
-              <Col md="4" className="form-group">
-                <label htmlFor="feInputState">State</label>
-                <FormSelect id="feInputState">
-                  <option>Choose...</option>
-                  <option>...</option>
-                </FormSelect>
-              </Col>
-              <Col md="2" className="form-group">
-                <label htmlFor="feInputZip">Zip</label>
-                <FormInput id="feInputZip" />
-              </Col>
+
               <Col md="12" className="form-group">
                 <FormCheckbox>
                   {/* eslint-disable-next-line */}I agree with your{" "}
@@ -81,4 +70,4 @@ const CompleteFormExample = () => (
   </ListGroup>
 );
 
-export default CompleteFormExample;
+export default RegisterForm;
