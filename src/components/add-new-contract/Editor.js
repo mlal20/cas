@@ -63,8 +63,7 @@ function Editor() {
         query,
       };
       const response = await services.contract.getContractData(req);
-
-      setTxt(response.data.text.replace(/^\n{2}/, "").replace(/\n/g, "<br />"));
+      setTxt(response.data.text.replace(/^\n{2}/, "").replace(/\n/g, "<br/>"));
       setIsLoading_1(false);
     } catch (error) {
       console.error(error);
@@ -95,13 +94,17 @@ function Editor() {
   async function saveContract(event) {
     event.preventDefault();
     setIsLoading_3(true);
+    console.log(contractInput, "hhh");
     try {
       const req = {
-        contractName,
-        contractInput,
-        secondpartyemail,
+        name: contractName,
+        description: contractInput,
+        contractUserName: "XYZ",
+        userEmail: secondpartyemail,
+        createdBy: "64183a8b0607ff485c6b85e0",
       };
       const response = await services.contract.saveContract(req);
+      setIsLoading_3(false);
       console.log(response);
     } catch (error) {
       console.error(error);
