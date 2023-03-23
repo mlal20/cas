@@ -26,7 +26,7 @@ function Editor() {
   const [isLoading_3, setIsLoading_3] = useState(false);
   const [contractInput, setContractInput] = useState("");
   const [contractName, setContractName] = useState("");
-  const [user, setUser] = useState(JSON.parse(Cookie.get("_auth_state")));
+  const [user, setUser] = useState(Cookie.get("_auth_state"));
   const [secondpartyemail, setSecondpartyemail] = useState("");
   const history = useHistory();
   const [i, setI] = useState(0);
@@ -34,7 +34,7 @@ function Editor() {
   const [speed, setSpeed] = useState(5);
 
   useEffect(() => {
-    setUser(JSON.parse(Cookie.get("_auth_state")));
+    setUser(Cookie.get("_auth_state"));
     if (i < txt.length) {
       setTimeout(() => {
         setContractInput(contractInput + txt.charAt(i));
@@ -106,7 +106,7 @@ function Editor() {
         description: contractInput,
         contractUserName: "XYZ",
         userEmail: secondpartyemail,
-        createdBy: user.id,
+        createdBy: user && JSON.parse(user).id,
       };
       const response = await services.contract.saveContract(req);
       setIsLoading_3(false);
