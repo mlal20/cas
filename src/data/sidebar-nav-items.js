@@ -17,6 +17,11 @@ export default function () {
       to: "/create-a-contract",
     },
     {
+      title: "Contracts",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/contracts",
+    },
+    {
       title: "Login",
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/login",

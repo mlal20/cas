@@ -1,6 +1,6 @@
 const BuyerDictionary = {
   saveContract: () => "contract",
-  getContract: () => "get-contract",
+  getContract: () => "contract",
   getContractData: () => "contract/contractdata",
 };
 
