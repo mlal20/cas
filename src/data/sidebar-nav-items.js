@@ -11,20 +11,26 @@ export default function () {
     //   htmlBefore: '<i class="material-icons">vertical_split</i>',
     //   to: "/blog-posts",
     // },
+
     {
       title: "Create a Contract",
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/create-a-contract",
+      isShow:false
     },
     {
       title: "Login",
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/login",
+      isShow:true
+
     },
     {
       title: "Sign Up",
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/register",
+      isShow:true
+
     },
     // {
     //   title: "Forms & Components",

@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col, Card, CardHeader } from "shards-react";
-
 import LoginForm from "../components/components-overview/LoginForm";
 
 const Login = () => (
