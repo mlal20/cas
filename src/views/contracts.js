@@ -11,15 +11,24 @@ import {
 
 import PageTitle from "../components/common/PageTitle";
 import services from "../api/services";
+import Cookie from "js-cookie"
 
 const Contracts = () => {
   const [contracts, setContracts] = useState([]);
+  const [user, setUser] = useState(JSON.parse(Cookie.get('_auth_state')));
+
   useEffect(() => {
+    setUser(JSON.parse(Cookie.get('_auth_state')));
     getContract();
   }, []);
+
   const getContract = async () => {
+    const payload = {
+      id : user?.id,
+      email: user?.email
+    }
     const response = await services.contract.getContract(
-      "64183a8b0607ff485c6b85e0"
+      payload
     );
     console.log(response.data);
     setContracts(response.data);
