@@ -9,13 +9,16 @@ import {
   NavItem,
   NavLink,
 } from "shards-react";
-
+import Cookie from "js-cookie"
 export default class UserActions extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       visible: false,
+    };
+    this.state = {
+      data:""
     };
 
     this.toggleUserActions = this.toggleUserActions.bind(this);
@@ -27,16 +30,20 @@ export default class UserActions extends React.Component {
     });
   }
 
+
   render() {
+    const details = Cookie.get('_auth_state')
     return (
       <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
+
         <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
-          <img
+         
+          {details?<img
             className="user-avatar rounded-circle mr-2"
             src="https://img.freepik.com/free-vector/men-doing-business-flat-design_1212-110.jpg"
             alt="User Avatar"
-          />{" "}
-          <span className="d-none d-md-inline-block">AI Driver</span>
+          />:" "}{" "}
+          <span className="d-none d-md-inline-block">{details?JSON.parse(details)?.name:""}</span>
         </DropdownToggle>
         {/* <Collapse tag={DropdownMenu} right small open={this.state.visible}>
            <DropdownItem tag={Link} to="user-profile">

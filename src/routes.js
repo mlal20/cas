@@ -9,6 +9,7 @@ import Fullpage from "./layouts/Fullpage";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import CreateContract from "./views/CreateContract";
+import Cookie from "js-cookie"
 
 export default [
   {
@@ -25,7 +26,7 @@ export default [
   {
     path: "/create-a-contract",
     layout: DefaultLayout,
-    component: CreateContract,
+    component:CreateContract
   },
   {
     path: "/login",

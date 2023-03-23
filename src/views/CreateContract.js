@@ -3,7 +3,13 @@ import { Container, Row, Col } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
 import Editor from "../components/add-new-contract/Editor";
+import Cookie from "js-cookie"
 function CreateContract() {
+  const details = Cookie.get('_auth_state')
+  if(!details){
+    return(<></>)
+  }
+
   return (
     <>
       <Container fluid className="main-content-container px-4 pb-4">

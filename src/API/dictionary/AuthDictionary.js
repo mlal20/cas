@@ -1,7 +1,7 @@
 const AuthDictionary = {
-  emailLogin: () => 'user/login',
+  emailLogin: () => 'auth/login',
   forgotPassword: () => 'send-link',
-  registerPlayer: () => 'register',
+  registerPlayer: () => 'auth/register',
   socialLogin: () => 'social-login',
   editprofile: () => 'user/editprofile',
   changePassword: () => 'profile/password',
