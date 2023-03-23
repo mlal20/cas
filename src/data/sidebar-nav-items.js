@@ -15,21 +15,18 @@ export default function () {
     {
       title: "Create a Contract",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/create-a-contract",
-      isShow:false
+      to: "/create-a-contract"
     },
     {
       title: "Login",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/login",
-      isShow:true
+      to: "/login"
 
     },
     {
       title: "Sign Up",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/register",
-      isShow:true
+      to: "/register"
 
     },
     // {

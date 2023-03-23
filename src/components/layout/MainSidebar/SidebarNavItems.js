@@ -37,9 +37,8 @@ class SidebarNavItems extends React.Component {
       <div className="nav-wrapper">
         <Nav className="nav--no-borders flex-column">
           {items.map((item, idx) => (
-            (isLoggedIn == item.isShow ?
-            <SidebarNavItem key={idx} item={item} />:
-            " ")
+
+            <SidebarNavItem key={idx} item={item} />
           ))}
         </Nav>
       </div>
