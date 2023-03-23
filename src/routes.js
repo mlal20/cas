@@ -11,6 +11,7 @@ import Login from "./views/Login";
 import CreateContract from "./views/CreateContract";
 import contracts from "./views/contracts";
 import views from "./views/Views";
+import Cookie from "js-cookie";
 
 export default [
   {

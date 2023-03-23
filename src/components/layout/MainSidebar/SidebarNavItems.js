@@ -3,7 +3,7 @@ import { Nav } from "shards-react";
 
 import SidebarNavItem from "./SidebarNavItem";
 import { Store } from "../../../flux";
-
+import Cookie from "js-cookie"
 class SidebarNavItems extends React.Component {
   constructor(props) {
     super(props)
@@ -32,10 +32,12 @@ class SidebarNavItems extends React.Component {
 
   render() {
     const { navItems: items } = this.state;
+     const isLoggedIn = Cookie.get('_auth_state') && true
     return (
       <div className="nav-wrapper">
         <Nav className="nav--no-borders flex-column">
           {items.map((item, idx) => (
+
             <SidebarNavItem key={idx} item={item} />
           ))}
         </Nav>

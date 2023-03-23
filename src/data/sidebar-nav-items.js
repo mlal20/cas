@@ -11,10 +11,11 @@ export default function () {
     //   htmlBefore: '<i class="material-icons">vertical_split</i>',
     //   to: "/blog-posts",
     // },
+
     {
       title: "Create a Contract",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/create-a-contract",
+      to: "/create-a-contract"
     },
     {
       title: "Contracts",
@@ -24,12 +25,14 @@ export default function () {
     {
       title: "Login",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/login",
+      to: "/login"
+
     },
     {
       title: "Sign Up",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/register",
+      to: "/register"
+
     },
     // {
     //   title: "Forms & Components",
