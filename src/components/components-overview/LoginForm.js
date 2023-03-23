@@ -19,7 +19,6 @@ const RegisterForm = () => {
   const [error, setError] = useState('')
   const signIn = useSignIn()
   const history = useHistory()
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
@@ -35,7 +34,7 @@ const RegisterForm = () => {
         tokenType: 'Bearer',
         authState: res.data.user,
       })
-     history.push('/create-a-contract');
+     window.location.href = '/create-a-contract';
     } catch (error) {
       console.log(error)
       if (error.status !== 200) {
