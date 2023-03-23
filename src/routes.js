@@ -10,6 +10,7 @@ import Register from "./views/Register";
 import Login from "./views/Login";
 import CreateContract from "./views/CreateContract";
 import contracts from "./views/contracts";
+import views from "./views/Views";
 
 export default [
   {
@@ -32,6 +33,11 @@ export default [
     path: "/contracts",
     layout: DefaultLayout,
     component: contracts,
+  },
+  {
+    path: "/view",
+    layout: DefaultLayout,
+    component: views,
   },
   {
     path: "/login",

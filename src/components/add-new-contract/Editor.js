@@ -16,7 +16,7 @@ import jsPDF from "jspdf";
 
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
-import services from "../../API/services";
+import services from "../../api/services";
 
 function Editor() {
   const [isLoading_1, setIsLoading_1] = useState(false);

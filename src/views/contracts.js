@@ -10,7 +10,7 @@ import {
 } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import services from "../API/services";
+import services from "../api/services";
 
 const Contracts = () => {
   const [contracts, setContracts] = useState([]);
@@ -21,6 +21,7 @@ const Contracts = () => {
     const response = await services.contract.getContract(
       "64183a8b0607ff485c6b85e0"
     );
+    console.log(response.data);
     setContracts(response.data);
   };
   return (
@@ -75,19 +76,12 @@ const Contracts = () => {
                             href={`http://localhost:5001${contract?.contractPath}`}
                             target="_blank"
                           >
-                            View Contract
+                            View Contract PDF
                           </a>
                         </td>
 
                         <td>
-                          <Button
-                            outline
-                            size="sm"
-                            theme="success"
-                            className="mb-2 mr-1"
-                          >
-                            Success
-                          </Button>
+                          <a href={`view/${contract?.id}`}>View</a>
                         </td>
                       </tr>
                     ))}
