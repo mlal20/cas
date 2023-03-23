@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import services from "../../API/services";
+import services from "../../api/services";
 import {
   ListGroup,
   ListGroupItem,
@@ -17,7 +17,7 @@ import { useHistory } from "react-router-dom";
 import Cookie from "js-cookie"
 
 
-const RegisterForm = () => 
+const RegisterForm = () =>
 {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,20 +32,20 @@ const request = {
   password:password
 }
   const res = await services.auth.userEmailLoginService(request);
-  
-  if(res.status == 200){ 
+
+  if(res.status == 200){
     signIn({
     token:res.data.tokens.access.token,
     expiresIn:3600,
     tokenType:"Bearer",
     authState:res.data.user
   })
-  
+
    history.push("/create-a-contract");
    var my =JSON.parse(Cookie.get('_auth_state'));
   console.log(my.name,"hutu");
   }
-  
+
 }
 catch(error){
   console.log(error)
@@ -80,7 +80,7 @@ catch(error){
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                    
+
                 />
               </Col>
             </Row>
