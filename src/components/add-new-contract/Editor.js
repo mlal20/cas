@@ -18,6 +18,7 @@ import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
 import services from "../../api/services";
 import { useHistory } from "react-router-dom";
+import Cookie from "js-cookie";
 
 function Editor() {
   const [isLoading_1, setIsLoading_1] = useState(false);
@@ -25,6 +26,7 @@ function Editor() {
   const [isLoading_3, setIsLoading_3] = useState(false);
   const [contractInput, setContractInput] = useState("");
   const [contractName, setContractName] = useState("");
+  const [user, setUser] = useState(JSON.parse(Cookie.get("_auth_state")));
   const [secondpartyemail, setSecondpartyemail] = useState("");
   const history = useHistory();
   const [i, setI] = useState(0);
@@ -32,6 +34,7 @@ function Editor() {
   const [speed, setSpeed] = useState(5);
 
   useEffect(() => {
+    setUser(JSON.parse(Cookie.get("_auth_state")));
     if (i < txt.length) {
       setTimeout(() => {
         setContractInput(contractInput + txt.charAt(i));
@@ -103,7 +106,7 @@ function Editor() {
         description: contractInput,
         contractUserName: "XYZ",
         userEmail: secondpartyemail,
-        createdBy: "64183a8b0607ff485c6b85e0",
+        createdBy: user.id,
       };
       const response = await services.contract.saveContract(req);
       setIsLoading_3(false);

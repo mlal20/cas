@@ -12,8 +12,10 @@ import {
 } from "shards-react";
 import { ethers } from "ethers";
 import Services from "../../api/services";
+import Cookie from "js-cookie";
 
 const SidebarActions = ({ title, data, signData }) => {
+  const [user, setUser] = useState(JSON.parse(Cookie.get("_auth_state")));
   const [domain, setDomain] = useState({
     name: "localhost",
     version: "1.0",
@@ -29,7 +31,9 @@ const SidebarActions = ({ title, data, signData }) => {
     ],
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setUser(JSON.parse(Cookie.get("_auth_state")));
+  }, []);
 
   const signContract = async () => {
     try {
@@ -112,6 +116,13 @@ const SidebarActions = ({ title, data, signData }) => {
             </span>
           </ListGroupItem>
           <ListGroupItem className="d-flex px-3 border-0">
+            {data.createdBy === user.id && <Button
+                theme="accent"
+                size="sm"
+                className="ml-auto"
+              >
+                <i className="material-icons">Save To B</i> Sign
+              </Button>}
             {!data?.isApprove ? (
               <Button
                 onClick={signContract}
