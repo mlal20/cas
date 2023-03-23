@@ -106,9 +106,11 @@ const SidebarActions = ({ title, data, signData }) => {
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">Digital Signature:</strong>{" "}
-              <strong className="text-warning" title={data?.signature}>
-                {data?.signature?.substring(0, 20) + "..."}
-              </strong>
+              {data?.signature && (
+                <strong className="text-warning" title={data?.signature}>
+                  {data?.signature?.substring(0, 20) + "..."}
+                </strong>
+              )}
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">Created Date:</strong>{" "}
@@ -116,14 +118,12 @@ const SidebarActions = ({ title, data, signData }) => {
             </span>
           </ListGroupItem>
           <ListGroupItem className="d-flex px-3 border-0">
-            {data.createdBy === user.id && <Button
-                theme="accent"
-                size="sm"
-                className="ml-auto"
-              >
-                <i className="material-icons">Save To B</i> Sign
-              </Button>}
-            {!data?.isApprove ? (
+            {data?.createdBy === user?.id && data?.isApprove && (
+              <Button outline theme="accent" size="sm">
+                <i className="material-icons">file_copy</i> Save to IPFS
+              </Button>
+            )}
+            {!data?.isApprove && data?.userEmail === user?.email && (
               <Button
                 onClick={signContract}
                 theme="accent"
@@ -132,13 +132,9 @@ const SidebarActions = ({ title, data, signData }) => {
               >
                 <i className="material-icons">file_copy</i> Sign
               </Button>
-            ) : (
-              <Button
-                onClick={signContract}
-                theme="accent"
-                size="sm"
-                className="ml-auto"
-              >
+            )}
+            {data?.isApprove && (
+              <Button disabled theme="accent" size="sm" className="ml-auto">
                 <i className="material-icons">file_copy</i> Signed
               </Button>
             )}
