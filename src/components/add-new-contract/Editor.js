@@ -17,6 +17,7 @@ import jsPDF from "jspdf";
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
 import services from "../../api/services";
+import { useHistory } from "react-router-dom";
 
 function Editor() {
   const [isLoading_1, setIsLoading_1] = useState(false);
@@ -25,6 +26,7 @@ function Editor() {
   const [contractInput, setContractInput] = useState("");
   const [contractName, setContractName] = useState("");
   const [secondpartyemail, setSecondpartyemail] = useState("");
+  const history = useHistory();
   const [i, setI] = useState(0);
   const [txt, setTxt] = useState("");
   const [speed, setSpeed] = useState(5);
@@ -105,7 +107,7 @@ function Editor() {
       };
       const response = await services.contract.saveContract(req);
       setIsLoading_3(false);
-      console.log(response);
+      history.push("/contracts");
     } catch (error) {
       console.error(error);
       alert(error.message);
