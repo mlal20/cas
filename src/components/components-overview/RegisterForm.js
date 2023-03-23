@@ -11,7 +11,7 @@ import {
   FormSelect,
   Button,
 } from "shards-react";
-import services from "../../API/services";
+import services from "../../api/services";
 import { useHistory } from "react-router-dom";
 
 const RegisterForm = () =>{
@@ -28,7 +28,7 @@ const RegisterForm = () =>{
       email:email,
       password:password
     }
-    
+
     const response = await services.auth.userRegisterService(req);
     console.log(response)
     if(response.status == 201){
@@ -39,8 +39,8 @@ const RegisterForm = () =>{
     console.log(error)
   }
 }
-    
- return( 
+
+ return(
   <ListGroup flush>
     <ListGroupItem className="p-3">
       <Row>
