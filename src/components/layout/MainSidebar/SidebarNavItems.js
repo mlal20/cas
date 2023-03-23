@@ -9,9 +9,9 @@ class SidebarNavItems extends React.Component {
     super(props)
 
     this.state = {
-      navItems: Store.getSidebarItems()
+      navItems: Store.getSidebarItems(),
+      isLoggedIn: Cookie.get('_auth_state') ? true : false
     };
-
     this.onChange = this.onChange.bind(this);
   }
 
@@ -32,12 +32,11 @@ class SidebarNavItems extends React.Component {
 
   render() {
     const { navItems: items } = this.state;
-     const isLoggedIn = Cookie.get('_auth_state') && true
     return (
       <div className="nav-wrapper">
         <Nav className="nav--no-borders flex-column">
           {items.map((item, idx) => (
-
+            (this.state.isLoggedIn === item.isLoggedIn) &&
             <SidebarNavItem key={idx} item={item} />
           ))}
         </Nav>

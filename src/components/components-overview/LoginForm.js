@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from "react";
-import services from "../../api/services";
+import React, { useState, useEffect } from 'react'
+import services from '../../api/services'
 import {
   ListGroup,
   ListGroupItem,
@@ -7,91 +7,95 @@ import {
   Col,
   Form,
   FormInput,
-  FormGroup,
-  FormCheckbox,
-  FormSelect,
   Button,
-} from "shards-react";
-import { useHistory } from "react-router-dom";
-   import { useSignIn } from "react-auth-kit";
+} from 'shards-react'
+import { useSignIn } from 'react-auth-kit'
+import { useHistory } from 'react-router-dom'
 import Cookie from "js-cookie"
 
+const RegisterForm = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const signIn = useSignIn()
+  const history = useHistory()
 
-const RegisterForm = () =>
-{
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-   const history = useHistory();
-const signIn = useSignIn();
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault()
+      const request = {
+        email: email,
+        password: password,
+      }
+      const res = await services.auth.userEmailLoginService(request)
 
-const handleSubmit =async (e) =>{
-  try{
-e.preventDefault();
-const request = {
-  email:email,
-  password:password
-}
-  const res = await services.auth.userEmailLoginService(request);
-
-  if(res.status == 200){
-    signIn({
-    token:res.data.tokens.access.token,
-    expiresIn:3600,
-    tokenType:"Bearer",
-    authState:res.data.user
-  })
-
-   history.push("/create-a-contract");
-   var my =JSON.parse(Cookie.get('_auth_state'));
-  console.log(my.name,"hutu");
+      signIn({
+        token: res.data.tokens.access.token,
+        expiresIn: 3600,
+        tokenType: 'Bearer',
+        authState: res.data.user,
+      })
+     history.push('/create-a-contract');
+    } catch (error) {
+      console.log(error)
+      if (error.status !== 200) {
+        setError(error.message);
+        setTimeout(() => {
+          setError('');
+        }, 2000)
+      }
+    }
   }
 
-}
-catch(error){
-  console.log(error)
-}
-}
-  return(
-  <ListGroup flush>
-    <ListGroupItem className="p-3">
-      <Row>
-        <Col>
-          <Form>
-            <Row form>
-              <Col md="12" className="form-group">
-                <label htmlFor="feEmailAddress">Email</label>
-                <FormInput
-                  id="feEmailAddress"
-                  type="email"
-                  placeholder="Email"
-                   value={email}
+  useEffect(() => {
+    const data = Cookie.get('_auth_state');
+    if(data){
+      history.push('/create-a-contract');
+    }
+  })
+
+  return (
+    <ListGroup flush>
+      <ListGroupItem className="p-3">
+        <Row>
+          <Col>
+            <Form>
+              <Row form>
+                <Col md="12" className="form-group">
+                  <label htmlFor="feEmailAddress">Email</label>
+                  <FormInput
+                    id="feEmailAddress"
+                    type="email"
+                    placeholder="Email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                />
-              </Col>
-            </Row>
-            <Row form>
-              <Col md="12" className="form-group">
-                <label htmlFor="fePassword">Password</label>
-                <FormInput
-                  id="fePassword"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-
-                />
-              </Col>
-            </Row>
-
-            <Button type="submit" onClick = {handleSubmit}>Login</Button>
-          </Form>
-        </Col>
-      </Row>
-    </ListGroupItem>
-  </ListGroup>
-);
+                  />
+                </Col>
+              </Row>
+              <Row form>
+                <Col md="12" className="form-group">
+                  <label htmlFor="fePassword">Password</label>
+                  <FormInput
+                    id="fePassword"
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </Col>
+              </Row>
+              {error}
+              <Button type="submit" onClick={handleSubmit}>
+                Login
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </ListGroupItem>
+    </ListGroup>
+  )
 }
 
-export default RegisterForm;
+export default RegisterForm
