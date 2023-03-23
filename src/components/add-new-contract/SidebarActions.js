@@ -12,6 +12,8 @@ import {
 } from "shards-react";
 import { ethers } from "ethers";
 import Services from "../../api/services";
+import Tooltip from "@mui/material/Tooltip";
+
 
 const SidebarActions = ({ title, data, signData }) => {
   const [domain, setDomain] = useState({
@@ -96,11 +98,17 @@ const SidebarActions = ({ title, data, signData }) => {
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">File Hash:</strong>{" "}
-              <strong className="text-warning">{data?.filehash}</strong>
+              <Tooltip title={data?.filehash}>
+              <strong className="text-warning">{data?.filehash.substring(0, 20) +
+              "......"}</strong>
+              </Tooltip>
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">Digital Signature:</strong>{" "}
-              <strong className="text-warning">{data?.signature}</strong>
+              <Tooltip title={data?.signature}>
+              <strong className="text-warning">{data?.signature.substring(0, 20)+
+              "......"}</strong>
+              </Tooltip>
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">Created Date:</strong>{" "}
