@@ -8,8 +8,9 @@ const ContractService = {
   saveContract: (body) => {
     return post(contract.saveContract(), body);
   },
-  getContract: (id) => {
-    const url = `${contract.getContract()}?id=${id}`;
+  getContract: (payload) => {
+    const searchParams = new URLSearchParams(payload)
+    const url = `${contract.getContract()}?${searchParams}`;
     return get(url);
   },
   getContractById: (id) => {
