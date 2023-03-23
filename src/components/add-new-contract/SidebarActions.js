@@ -96,11 +96,13 @@ const SidebarActions = ({ title, data, signData }) => {
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">File Hash:</strong>{" "}
-              <strong className="text-warning">{data?.filehash}</strong>
+              <strong className="text-warning" title="data?.filehash">{data?.filehash.substring(0, 20) +
+              "......"}</strong>
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">Digital Signature:</strong>{" "}
-              <strong className="text-warning">{data?.signature}</strong>
+              <strong className="text-warning" title="data?.signature">{data?.signature.substring(0, 20)+
+              "......"}</strong>
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">Created Date:</strong>{" "}
