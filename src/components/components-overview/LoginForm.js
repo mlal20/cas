@@ -36,12 +36,12 @@ const RegisterForm = () => {
       })
      window.location.href = '/create-a-contract';
     } catch (error) {
-      console.log(error)
-      if (error.status !== 200) {
-        setError(error.message);
+      console.log(error.response)
+      if (error?.response?.data?.code !== 200) {
+        setError(error?.response?.data?.message);
         setTimeout(() => {
           setError('');
-        }, 2000)
+        }, 5000)
       }
     }
   }
@@ -85,7 +85,7 @@ const RegisterForm = () => {
                   />
                 </Col>
               </Row>
-              {error}
+              {error && <Row form><span style={{color:"red"}}>{error}</span></Row>}
               <Button type="submit" onClick={handleSubmit}>
                 Login
               </Button>
