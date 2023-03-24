@@ -4,6 +4,7 @@ const BuyerDictionary = {
   getContractById: () => "contract",
   updateContract: () => "contract",
   getContractData: () => "contract/contractdata",
+  saveToIPFS: () => "contract/saveToIPFS",
 };
 
 export default BuyerDictionary;

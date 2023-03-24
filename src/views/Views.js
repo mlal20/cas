@@ -9,6 +9,7 @@ import Services from "../api/services";
 
 const Views = (props) => {
   const [contract, setContract] = useState(null);
+  const [ipfs, setIPFSData] = useState(null);
 
   useEffect(() => {
     const paramArray = props.location.pathname.split("/");
@@ -19,7 +20,6 @@ const Views = (props) => {
   const view = async (id) => {
     try {
       const response = await Services.contract.getContractById(id);
-      console.log(response.data);
       setContract(response.data);
     } catch (error) {
       console.error(error);
@@ -36,8 +36,12 @@ const Views = (props) => {
         </Col>
 
         <Col lg="4" md="12">
-          <SidebarActions data={contract} signData={setContract} />
-          {/* <SidebarCategories /> */}
+          <SidebarActions
+            data={contract}
+            signData={setContract}
+            IpfsData={setIPFSData}
+          />
+          {/* <SidebarCategories data={ipfs} /> */}
         </Col>
       </Row>
     </Container>
