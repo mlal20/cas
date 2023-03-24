@@ -14,13 +14,14 @@ import { ethers } from "ethers";
 import Services from "../../api/services";
 import Cookie from "js-cookie";
 
-const SidebarActions = ({ title, data, signData }) => {
+const SidebarActions = ({ title, data, signData, IpfsData }) => {
   const [user, setUser] = useState(JSON.parse(Cookie.get("_auth_state")));
   const [domain, setDomain] = useState({
     name: "localhost",
     version: "1.0",
     chainId: 11155111,
   });
+  const [isLoading_1, setIsLoading_1] = useState(false);
   const types = {
     Payload: [
       { name: "id", type: "string" },
@@ -34,6 +35,19 @@ const SidebarActions = ({ title, data, signData }) => {
   useEffect(() => {
     setUser(JSON.parse(Cookie.get("_auth_state")));
   }, []);
+  const saveToIPFS = async () => {
+    try {
+      setIsLoading_1(false);
+      const req = {
+        id: data?.id,
+      };
+      const response = await Services.contract.saveToIPFS(req);
+      signData(response.data);
+      setIsLoading_1(false);
+    } catch (error) {
+      setIsLoading_1(false);
+    }
+  };
 
   const signContract = async () => {
     try {
@@ -114,13 +128,24 @@ const SidebarActions = ({ title, data, signData }) => {
             </span>
             <span className="d-flex mb-2">
               <strong className="mr-1">Created Date:</strong>{" "}
-              <strong className="text-warning">{data?.date}</strong>
+              <strong className="text-warning">{data?.createdAt}</strong>
+            </span>
+            <span className="d-flex mb-2">
+              <strong className="mr-1">IPFS URL:</strong>{" "}
+              {data?.ipfs && (
+                <strong className="text-warning">
+                  <a href={data?.ipfs} target="_blank">
+                    View Contract On IPFS
+                  </a>
+                </strong>
+              )}
             </span>
           </ListGroupItem>
           <ListGroupItem className="d-flex px-3 border-0">
-            {data?.createdBy === user?.id && data?.isApprove && (
-              <Button outline theme="accent" size="sm">
-                <i className="material-icons">file_copy</i> Save to IPFS
+            {data?.createdBy === user?.id && data?.isApprove && !data?.ipfs && (
+              <Button onClick={saveToIPFS} outline theme="accent" size="sm">
+                <i className="material-icons">file_copy</i>
+                {isLoading_1 ? "Saving..." : "Save to IPFS"}
               </Button>
             )}
             {!data?.isApprove && data?.userEmail === user?.email && (

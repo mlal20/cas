@@ -9,7 +9,7 @@ const ContractService = {
     return post(contract.saveContract(), body);
   },
   getContract: (payload) => {
-    const searchParams = new URLSearchParams(payload)
+    const searchParams = new URLSearchParams(payload);
     const url = `${contract.getContract()}?${searchParams}`;
     return get(url);
   },
@@ -23,6 +23,9 @@ const ContractService = {
   updateContract: (id, body) => {
     const url = `${contract.updateContract()}/${id}`;
     return patch(url, body);
+  },
+  saveToIPFS: (body) => {
+    return post(contract.saveToIPFS(), body);
   },
 };
 
